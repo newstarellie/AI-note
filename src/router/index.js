@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import OpenAi from '../views/OpenAi'
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Contact from '../views/Contact'
@@ -11,6 +12,11 @@ import accountPage from '../views/account'
 const routes = [
   {
     path: '/',
+    name: 'OPEN AI',
+    component: OpenAi,
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home,
   },
