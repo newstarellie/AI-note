@@ -1,0 +1,39 @@
+@import './variable.scss';
+
+@media only screen and (max-width: $small-screen) {
+    form {
+        max-width: 90%;
+    }
+
+    input,
+    button {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: $medium-screen) {
+
+    /* RWD 設定 */
+    .header {
+        font-size: 1.5rem;
+    }
+
+    .nav-bar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        padding: 10px;
+    }
+}
+
+
+@media only screen and (max-width: $large-screen) {
+    /* RWD 設定 */
+
+}
+
+@media only screen and (max-width: $x-large-screen) {
+    /* RWD 設定 */
+}
