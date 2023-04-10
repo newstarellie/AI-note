@@ -16,21 +16,11 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
-import generateCode from '@/api';
-
 
 export default {
   name: 'App',
   components: {
     Navbar,
-  },
-  methods: {
-    async generate() {
-      this.generatedCode = await generateCode(this.prompt);
-    }
-  },
-  created() {
-    this.generate();
   },
 };
 </script>

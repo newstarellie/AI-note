@@ -7,19 +7,18 @@ const headers = {
   'Content-Type': 'application/json',
   'Authorization': `Bearer ${API_KEY}`
 };
-const generateCode = async () => {
+const generateCode = async (requestContent) => {
   const data = {
     "model": "gpt-3.5-turbo",
-    "messages": [{ "role": "user", "content": "Say this is a test!" }],
+    "messages": [{ "role": "user", "content": `${requestContent}` }],
     "temperature": 0.7
   };
 
-  axios.post(url, data, { headers })
-    .then(response => {
-      console.log(response.data.choices[0].message);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  try {
+    const response = await axios.post(url, data, { headers });
+    return response.data.choices[0].message.content;
+  } catch (error) {
+    console.log(error);
+  }
 };
 export default generateCode;
