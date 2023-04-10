@@ -13,15 +13,26 @@ import { createI18n } from 'vue-i18n';
 // 引入 vue-select
 import VueSelect from 'vue-select';
 
-import firebase from './plugins/firebase'
+import firebase from './plugins/firebase';
+
+import socket from './websocket.js';
+console.log(socket);
+
+socket.on('connect', () => {
+  console.log('Connected to WebSocket server');
+});
+
+socket.on('disconnect', () => {
+  console.log('Disconnected from WebSocket server');
+});
 
 // 引入全局样式
 import './assets/styles/main.scss';
 
 // 创建 i18n 实例
 const i18n = createI18n({
-    locale: 'en', // 默认语言
-    // messages,
+  locale: 'en', // 默认语言
+  // messages,
 });
 
 // 创建 Vue 实例
