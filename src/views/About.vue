@@ -1,53 +1,31 @@
 <template>
-  <div>
-    <h1>WebSocket Test</h1>
-    <input type="text" v-model="inputText" />
-    <button @click="sendMessage">Send Message</button>
-    <ul>
-      <li v-for="(message, index) in messages" :key="index">{{ message }}</li>
-    </ul>
-  </div>
+    <div class="about">
+        <h1>About Us</h1>
+        <p>
+            We are an online store dedicated to providing the best products and services to our customers. Our mission is to
+            create a seamless shopping experience for everyone.
+        </p>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'WebSocketTest',
-  data() {
-    return {
-      inputText: '',
-      messages: []
-    };
-  },
-  mounted() {
-    this.connectWebSocket();
-  },
-  methods: {
-    connectWebSocket() {
-      const url = 'ws://localhost:8080/';
-      this.socket = new WebSocket(url);
-
-      this.socket.onopen = () => {
-        console.log('Connected to WebSocket server');
-      };
-
-      this.socket.onclose = () => {
-        console.log('Disconnected from WebSocket server');
-      };
-
-      this.socket.onmessage = event => {
-        const message = event.data;
-        this.messages.push(message);
-      };
-    },
-    sendMessage() {
-      if (this.inputText) {
-        this.socket.send(this.inputText);
-        this.inputText = '';
-      }
-    }
-  },
-  beforeUnmount() {
-    this.socket.close();
-  }
+    name: 'AboutPage',
 };
 </script>
+
+<style scoped>
+.about {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+</style>
