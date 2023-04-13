@@ -13,7 +13,7 @@
     </main>
     <aside class="questionList">
       <ul>
-        <li :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
+        <li :title="data.question" :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
           <a :href="`#${data.createdTime}`">{{ data.question.slice(0, 20) }}</a>
         </li>
       </ul>
