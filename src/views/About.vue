@@ -10,44 +10,44 @@
 </template>
 
 <script>
-import socket from '@/websocket';
-
 export default {
   name: 'WebSocketTest',
   data() {
     return {
       inputText: '',
-      messages: [],
-      connected: false
+      messages: []
     };
   },
   mounted() {
-    socket.on("error", (error) => {
-      console.error(error);
-    });
-    socket.on('connect', () => {
-      console.log('Connected to WebSocket server');
-      this.connected = true;
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Disconnected from WebSocket server');
-      this.connected = false;
-    });
-
-    socket.on('message', (message) => {
-      this.messages.push(message);
-    });
+    this.connectWebSocket();
   },
   methods: {
+    connectWebSocket() {
+      const url = 'ws://localhost:8080/';
+      this.socket = new WebSocket(url);
+
+      this.socket.onopen = () => {
+        console.log('Connected to WebSocket server');
+      };
+
+      this.socket.onclose = () => {
+        console.log('Disconnected from WebSocket server');
+      };
+
+      this.socket.onmessage = event => {
+        const message = event.data;
+        this.messages.push(message);
+      };
+    },
     sendMessage() {
-      console.log(this.inputText)
       if (this.inputText) {
-        console.log(socket)
-        socket.emit('message', this.inputText);
+        this.socket.send(this.inputText);
         this.inputText = '';
       }
     }
+  },
+  beforeUnmount() {
+    this.socket.close();
   }
 };
 </script>
