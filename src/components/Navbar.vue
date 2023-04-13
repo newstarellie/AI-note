@@ -5,6 +5,10 @@
         <router-link to="/">OPEN AI</router-link>
       </li>
       <li>
+        <router-link to="/loading">loadingI</router-link>
+      </li>
+
+      <!-- <li>
         <router-link to="/home">Home</router-link>
       </li>
       <li>
@@ -18,12 +22,12 @@
       </li>
       <li>
         <router-link to="/history">History</router-link>
-      </li>
-      <li>
-        <!-- 如果已經登入之後 log out  -->
-        <!-- 沒有會員 sign in -->
+      </li> -->
+      <!-- 如果已經登入之後 log out  -->
+      <!-- 沒有會員 sign in -->
+      <!-- <li>
         <router-link to="/account">log in</router-link>
-      </li>
+      </li> -->
     </ul>
   </nav>
 </template>
