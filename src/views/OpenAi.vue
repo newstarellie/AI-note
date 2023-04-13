@@ -1,14 +1,13 @@
 <template>
   <div>
     <ul>
-      <li v-for="(data, index) in dataList" :key="index">
-        <a href="">{{ data.question }}</a>
-        <p>{{ data.answer }}</p>
-        <p>{{ data.createdTime }}</p>
+      <li :id="data.createdTime" v-for="(data, index) in dataList" :key="index">
+        <p class="question" v-html="data.question"></p>
+        <p v-html="data.answer"></p>
+        <p v-html="data.createdTime"></p>
       </li>
     </ul>
-    <textarea id="mySection" style="width: 300px; height: 100px;" type="text" v-model="inputText"
-      @keyup.ctrl.enter="generateCode" ref="myInput" />
+    <textarea class="inputArea" type="text" v-model="inputText" @keyup.ctrl.enter="generateCode" ref="myInput" />
 
     <button @click="generateCode">send</button>
   </div>
@@ -65,6 +64,10 @@ export default {
     },
     save(question, answer) {
       console.log(question, answer);
+      question = question.replace(/\n/g, "<br/>");
+      answer = answer.replace(/\n/g, "<br/>");
+
+
       this.$store.dispatch('openAi/writeDataToFirebase', {
         createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
         payload: {
@@ -83,3 +86,15 @@ export default {
   },
 };
 </script>
+<style>
+.question {
+  border: 1px solid black;
+}
+
+.inputArea {
+  width: 80%;
+  height: 100px;
+  padding: 10px;
+  margin: 20px;
+}
+</style>
