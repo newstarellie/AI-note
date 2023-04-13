@@ -9,7 +9,7 @@
       </ul>
     </aside>
     <main>
-      <router-view></router-view>
+      <router-view :questionThread="currentQuestionThread"></router-view>
     </main>
     <aside class="questionList">
       <ul>
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      currentQuestionThread: 'openAi',
+      currentQuestionThread: '',
     }
   },
   computed: {

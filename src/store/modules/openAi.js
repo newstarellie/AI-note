@@ -3,6 +3,7 @@ import { getDatabase, ref, set, get } from "firebase/database";
 const state = {
   dataList: {},
   questionThreadList: {},
+  currentQuestionThread: '',
 };
 
 const getters = {
@@ -10,10 +11,11 @@ const getters = {
 
 const actions = {
   // 在此定義與產品相關的異步操作，例如從 API 獲取產品數據
-  writeDataToFirebase({ commit }, { createdTime, payload }) {
+  writeDataToFirebase({ commit }, { questionThread, createdTime, payload }) {
     // 取得 Firebase Realtime Database 的參考
     const db = getDatabase();
-    const openAiRef = ref(db, `openAi/${createdTime}`);
+    console.log(questionThread)
+    const openAiRef = ref(db, `${questionThread}/${createdTime}`);
 
     // 寫入資料到 Firebase Realtime Database
     set(openAiRef, payload)
@@ -29,7 +31,6 @@ const actions = {
   getDataFromFirebase({ commit }, questionThread) {
     // 取得 Firebase Realtime Database 的參考
     const db = getDatabase();
-    console.log(questionThread);
     const questionThreadRef = ref(db, questionThread);
 
     // 寫入資料到 Firebase Realtime Database
@@ -37,6 +38,7 @@ const actions = {
       .then((snapshot) => {
         console.log("資料取得成功");
         commit("SET_DATA_LIST", snapshot.val())
+        commit("SET_CURRENT_QUESTION_THREAD", questionThread)
       })
       .catch((error) => {
         console.error("資料取得失敗", error);
@@ -51,7 +53,7 @@ const actions = {
     get(Allref)
       .then((snapshot) => {
         console.log("資料取得成功");
-        commit("SET_QUESTION_THREAD", Object.keys(snapshot.val()))
+        commit("SET_QUESTION_THREAD_LIST", Object.keys(snapshot.val()))
       })
       .catch((error) => {
         console.error("資料取得失敗", error);
@@ -67,8 +69,11 @@ const mutations = {
   SET_DATA_LIST(state, data) {
     state.dataList = data;
   },
-  SET_QUESTION_THREAD(state, data) {
+  SET_QUESTION_THREAD_LIST(state, data) {
     state.questionThreadList = data;
+  },
+  SET_CURRENT_QUESTION_THREAD(state, data) {
+    state.currentQuestionThread = data;
   },
 };
 

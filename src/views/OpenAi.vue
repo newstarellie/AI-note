@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ questionThread }}
     <ul>
       <li :id="data.createdTime" v-for="(data, index) in dataList" :key="index">
         <p class="question" v-html="data.question"></p>
@@ -21,6 +22,7 @@ import { mapState } from "vuex";
 
 export default {
   name: 'MyComponent',
+  props: ['questionThread'],
   data() {
     return {
       inputText: '',
@@ -51,7 +53,7 @@ export default {
       this.$router.push('/loading');
       this.outputText = await generateCode(this.inputText);
       this.$router.push('/');
-      this.save(this.inputText, this.outputText);
+      this.writeDataToFirebase(this.inputText, this.outputText);
       this.inputText = '';
 
       // 先放入 eachRecords 
@@ -62,13 +64,14 @@ export default {
       this.eachRecords = {};
       console.log(this.records);
     },
-    save(question, answer) {
+    writeDataToFirebase(question, answer) {
       console.log(question, answer);
       question = question.replace(/\n/g, "<br/>");
       answer = answer.replace(/\n/g, "<br/>");
-
+      // 如果是新建立的questionThread  
 
       this.$store.dispatch('openAi/writeDataToFirebase', {
+        questionThread: this.questionThread,
         createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
         payload: {
           createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
