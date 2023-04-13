@@ -4,8 +4,8 @@
       <navbar></navbar>
     </header>
     <aside class="questionThread">
-      <ul>
-        <li>111</li>
+      <ul v-for="questionThread in questionThreadList" :key="questionThread">
+        <li @click="setCurrentQuestionThread(questionThread)">{{ questionThread }}</li>
       </ul>
     </aside>
     <main>
@@ -13,8 +13,8 @@
     </main>
     <aside class="questionList">
       <ul>
-        <li :title="data.question" :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
-          <a :href="`#${data.createdTime}`">{{ data.question.slice(0, 20) }}</a>
+        <li :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
+          <a :href="`#${data.createdTime}`">{{ data.question }}</a>
         </li>
       </ul>
       <i title="刪除紀錄" class="fa fa-trash" aria-hidden="true" @click="clearThisRecord"></i>
@@ -37,18 +37,27 @@ export default {
   components: {
     Navbar,
   },
+  data() {
+    return {
+      currentQuestionThread: 'openAi',
+    }
+  },
   computed: {
     ...mapState("openAi", ["dataList"]),
+    ...mapState("openAi", ["questionThreadList"]),
 
   },
   methods: {
     clearThisRecord() {
       console.log('ji');
+    },
+    setCurrentQuestionThread(questionThread) {
+      this.currentQuestionThread = questionThread;
+      this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
     }
   },
   created() {
-    this.$store.dispatch("order/getDataFromFirebase");
-
+    this.$store.dispatch("openAi/getQuestionThreadList");
   }
 };
 </script>

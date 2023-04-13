@@ -81,9 +81,6 @@ export default {
       window.scrollTo(0, document.body.scrollHeight);
     }
   },
-  created() {
-    this.$store.dispatch("openAi/getDataFromFirebase");
-  },
 };
 </script>
 <style>
