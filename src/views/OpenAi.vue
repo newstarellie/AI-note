@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-model="inputText" />
+    <input type="text" v-model="inputText" @keyup.enter="generateCode" />
     <button @click="generateCode">send</button>
     <ul>
       <li v-for="(record, index) in records" :key="index">
@@ -13,6 +13,8 @@
 
 <script>
 import generateCode from '@/api';
+import { DateTime } from 'luxon';
+
 
 export default {
   name: 'MyComponent',
@@ -29,7 +31,12 @@ export default {
   },
   methods: {
     async generateCode() {
+      this.$router.push('/loading');
       this.outputText = await generateCode(this.inputText);
+      this.$router.push('/');
+      this.save(this.inputText, this.outputText);
+      this.inputText = '';
+
 
       // 先放入 eachRecords 
       this.eachRecords.question = this.inputText;
@@ -39,6 +46,16 @@ export default {
       this.eachRecords = {};
       console.log(this.records);
     },
+    save(question, answer) {
+      console.log(question, answer);
+      this.$store.dispatch('openAi/writeDataToFirebase', {
+        createdTime: DateTime.now().toFormat('yyyy-MM-dd HH:mm'),
+        payload: {
+          question: question,
+          answer: answer
+        }
+      });
+    }
   },
 };
 </script>
