@@ -2,10 +2,12 @@
   <div>
     <input type="text" v-model="inputText" @keyup.enter="generateCode" />
     <button @click="generateCode">send</button>
+    <!-- {{ dataList }} -->
     <ul>
-      <li v-for="(record, index) in records" :key="index">
-        <a href="">{{ record.question }}</a>
-        <p>{{ record.response }}</p>
+      <li v-for="(data, index) in dataList" :key="index">
+        <a href="">{{ data.question }}</a>
+        <p>{{ data.answer }}</p>
+        <a href="">{{ data.createdTime }}</a>
       </li>
     </ul>
   </div>
@@ -14,6 +16,7 @@
 <script>
 import generateCode from '@/api';
 import { DateTime } from 'luxon';
+import { mapState } from "vuex";
 
 
 export default {
@@ -28,6 +31,10 @@ export default {
         response: '',
       }
     };
+  },
+  computed: {
+    ...mapState("openAi", ["dataList"]),
+
   },
   methods: {
     async generateCode() {
@@ -49,13 +56,17 @@ export default {
     save(question, answer) {
       console.log(question, answer);
       this.$store.dispatch('openAi/writeDataToFirebase', {
-        createdTime: DateTime.now().toFormat('yyyy-MM-dd HH:mm'),
+        createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
         payload: {
+          createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
           question: question,
           answer: answer
         }
       });
     }
+  },
+  created() {
+    this.$store.dispatch("openAi/getDataFromFirebase");
   },
 };
 </script>
