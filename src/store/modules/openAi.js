@@ -39,6 +39,21 @@ const actions = {
       .catch((error) => {
         console.error("資料取得失敗", error);
       });
+  },
+  getAllQuestionThread({ commit }) {
+    // 取得 Firebase Realtime Database 的參考
+    const db = getDatabase();
+    const ref = ref(db);
+
+    // 寫入資料到 Firebase Realtime Database
+    get(ref)
+      .then((snapshot) => {
+        console.log("資料取得成功");
+        commit("SET_DATA_LIST", snapshot.val())
+      })
+      .catch((error) => {
+        console.error("資料取得失敗", error);
+      });
   }
 };
 

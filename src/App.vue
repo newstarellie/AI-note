@@ -3,13 +3,17 @@
     <header>
       <navbar></navbar>
     </header>
-
+    <aside class="questionThread">
+      <ul>
+        <li>111</li>
+      </ul>
+    </aside>
     <main>
       <router-view></router-view>
     </main>
-    <aside>
+    <aside class="questionList">
       <ul>
-        <li class="questionList" v-for="(data) in dataList" :key="data.createdTime">
+        <li :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
           <a :href="`#${data.createdTime}`">{{ data.question.slice(0, 20) }}</a>
         </li>
       </ul>
@@ -42,6 +46,10 @@ export default {
       console.log('ji');
     }
   },
+  created() {
+    this.$store.dispatch("order/getDataFromFirebase");
+
+  }
 };
 </script>
 
@@ -52,15 +60,20 @@ header {
   padding: 10px 0;
 }
 
-
-
-aside {
+.questionThread {
   width: 20%;
+  // position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: white;
+}
 
+.questionList {
+  width: 20%;
   position: fixed;
   bottom: 20px;
   right: 20px;
-
+  background-color: white;
 }
 
 main {
