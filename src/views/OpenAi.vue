@@ -1,15 +1,16 @@
 <template>
   <div>
-    <input type="text" v-model="inputText" @keyup.enter="generateCode" />
-    <button @click="generateCode">send</button>
-    <!-- {{ dataList }} -->
     <ul>
       <li v-for="(data, index) in dataList" :key="index">
         <a href="">{{ data.question }}</a>
         <p>{{ data.answer }}</p>
-        <a href="">{{ data.createdTime }}</a>
+        <p>{{ data.createdTime }}</p>
       </li>
     </ul>
+    <textarea id="mySection" style="width: 300px; height: 100px;" type="text" v-model="inputText"
+      @keyup.ctrl.enter="generateCode" ref="myInput" />
+
+    <button @click="generateCode">send</button>
   </div>
 </template>
 
@@ -36,14 +37,23 @@ export default {
     ...mapState("openAi", ["dataList"]),
 
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.myInput.focus();
+    });
+
+  },
+  updated() {
+    this.scrollToBottom();
+  },
   methods: {
+
     async generateCode() {
       this.$router.push('/loading');
       this.outputText = await generateCode(this.inputText);
       this.$router.push('/');
       this.save(this.inputText, this.outputText);
       this.inputText = '';
-
 
       // 先放入 eachRecords 
       this.eachRecords.question = this.inputText;
@@ -63,6 +73,9 @@ export default {
           answer: answer
         }
       });
+    },
+    scrollToBottom() {
+      window.scrollTo(0, document.body.scrollHeight);
     }
   },
   created() {
