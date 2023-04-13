@@ -20,8 +20,8 @@ import './assets/styles/main.scss';
 
 // 创建 i18n 实例
 const i18n = createI18n({
-    locale: 'en', // 默认语言
-    // messages,
+  locale: 'en', // 默认语言
+  // messages,
 });
 
 // 创建 Vue 实例

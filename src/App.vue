@@ -13,6 +13,8 @@
           <a :href="`#${data.createdTime}`">{{ data.question.slice(0, 20) }}</a>
         </li>
       </ul>
+      <i title="刪除紀錄" class="fa fa-trash" aria-hidden="true" @click="clearThisRecord"></i>
+
     </aside>
 
     <footer>
@@ -34,6 +36,11 @@ export default {
   computed: {
     ...mapState("openAi", ["dataList"]),
 
+  },
+  methods: {
+    clearThisRecord() {
+      console.log('ji');
+    }
   },
 };
 </script>
@@ -64,5 +71,13 @@ main {
 
 footer {
   background-color: #f5f5f5
+}
+
+i {
+  font-size: 30px;
+
+  &:hover {
+    color: gray;
+  }
 }
 </style>
