@@ -4,7 +4,6 @@
       <a :href="`#${data.createdTime}`">{{ data.question }}</a>
     </li>
   </ul>
-  <i title="刪除紀錄" class="fa fa-trash" aria-hidden="true" @click="clearThisRecord"></i>
 </template>
 
 <script>
