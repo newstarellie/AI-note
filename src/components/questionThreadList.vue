@@ -1,38 +1,42 @@
 <template>
-  <aside class="questionThread">
-    <ul v-for="questionThread in questionThreadList" :key="questionThread">
-      <li @click="setCurrentQuestionThread(questionThread)">{{ questionThread }}</li>
-    </ul>
-  </aside>
+  <ul class="questionThread" v-for="questionThread in questionThreadList" :key="questionThread">
+    <li @click="setCurrentQuestionThread(questionThread)">{{ questionThread }}</li>
+  </ul>
 </template>
 <script>
+import { mapState } from "vuex";
 
 export default {
   name: 'questionThreadList',
+  computed: {
+    ...mapState("openAi", ["dataList"]),
+    ...mapState("openAi", ["questionThreadList"]),
+
+  },
+  methods: {
+    setCurrentQuestionThread(questionThread) {
+      this.currentQuestionThread = questionThread;
+      this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
+    }
+  },
+  updated() {
+    // todo 頁面標籤沒有跟著改 
+    document.title = this.currentQuestionThread || 'Create New Chat';
+  },
+  created() {
+    this.$store.dispatch("openAi/getQuestionThreadList");
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* 样式根据你的项目需求和设计进行调整 */
 
-nav ul {
-  display: flex;
-  list-style: none;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul li {
-  margin: 0 10px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-nav ul li a:hover {
-  color: #007bff;
+.questionThread {
+  // width: 20%;
+  // position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: white;
 }
 </style>

@@ -14,40 +14,16 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
-import { mapState } from "vuex";
-
 
 export default {
   name: 'App',
   components: {
     Navbar,
   },
-  data() {
-    return {
-      currentQuestionThread: '',
-    }
-  },
-  computed: {
-    ...mapState("openAi", ["dataList"]),
-    ...mapState("openAi", ["questionThreadList"]),
-
-  },
-  methods: {
-    clearThisRecord() {
-      console.log('ji');
-    },
-    setCurrentQuestionThread(questionThread) {
-      this.currentQuestionThread = questionThread;
-      this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
-    }
-  },
   updated() {
     // 我要呈現問題串的名稱
     document.title = this.currentQuestionThread || 'Create New Chat';
   },
-  created() {
-    this.$store.dispatch("openAi/getQuestionThreadList");
-  }
 };
 </script>
 
@@ -56,22 +32,6 @@ export default {
 header {
   background-color: #f5f5f5;
   padding: 10px 0;
-}
-
-.questionThread {
-  width: 20%;
-  // position: fixed;
-  top: 20px;
-  left: 20px;
-  background-color: white;
-}
-
-.questionList {
-  width: 20%;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: white;
 }
 
 main {
