@@ -8,7 +8,7 @@
 <script>
 import generateCode from '@/api';
 import { DateTime } from 'luxon';
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 
 export default {
@@ -22,6 +22,7 @@ export default {
   },
   computed: {
     ...mapState("openAi", ["currentQuestionThread"]),
+    ...mapGetters("openAi", ["newPageStatus"]),
 
   },
   methods: {
@@ -36,7 +37,7 @@ export default {
     },
     writeDataToFirebase(question, answer) {
       this.$store.dispatch('openAi/writeDataToFirebase', {
-        questionThread: this.currentQuestionThread !== 'CreateNewChat' ? this.currentQuestionThread : this.currentTime,
+        questionThread: this.newPageStatus ? this.currentTime : this.currentQuestionThread,
         createdTime: this.currentTime,
         payload: {
           createdTime: this.currentTime,
