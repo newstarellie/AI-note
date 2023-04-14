@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, get } from "firebase/database";
+import { getDatabase, ref, set, get, move } from "firebase/database";
 
 const state = {
   dataList: {},
@@ -77,12 +77,44 @@ const actions = {
         console.error("清除資料庫時出錯", error);
       });
   },
+  changeNameOfThisQuestionThread({ dispatch }, { oldQuestionThread, newQuestionThread }) {
+    console.log(oldQuestionThread, newQuestionThread);
+    const db = getDatabase();
+    const oldQuestionThreadRef = ref(db, oldQuestionThread);
+    const newQuestionThreadRef = ref(db, newQuestionThread);
+
+    // 移動資料到新的路徑
+    move(oldQuestionThreadRef, newQuestionThreadRef)
+      .then(() => {
+        console.log("資料已從舊的路徑移動到新的路徑");
+        dispatch("getQuestionThreadList");
+      })
+      .catch((error) => {
+        console.error("移動資料到新的路徑時出錯", error);
+      });
+  },
+  clearAllQuestionThread() {
+    const db = getDatabase();
+    const rootRef = ref(db);
+    set(rootRef, null)
+      .then(() => {
+        console.log("資料庫已清空");
+        this.$store.dispatch("openAi/getDataFromFirebase", state.currentQuestionThread);
+        this.$store.dispatch("openAi/getQuestionThreadList");
+
+
+      })
+      .catch((error) => {
+        console.error("清除資料庫時出錯", error);
+      });
+  }
 
 };
 
 const mutations = {
   // todo 改名字
   SET_DATA_LIST(state, data) {
+    console.log(data)
     state.dataList = data;
   },
   SET_QUESTION_THREAD_LIST(state, data) {

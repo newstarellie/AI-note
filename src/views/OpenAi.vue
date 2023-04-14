@@ -9,7 +9,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import questionThreadList from '../components/questionThreadList.vue'
+import questionThreadList from '../components/questionThreadList/questionThreadList.vue'
 import questionsRecordList from '../components/questionsRecordList.vue'
 import questionList from '../components/questionList.vue'
 import questionInputArea from '../components/questionInputArea.vue'
