@@ -5,11 +5,11 @@
 
       <div class="buttonList">
         <QuestionThreadDeleteButton :question-thread="questionThread" @click="deleteThisQuestionThread(questionThread)" />
-        <QuestionThreadEditButton :question-thread="questionThread" @click="editNameOfQuestionThread(questionThread)" />
+        <QuestionThreadEditButton :question-thread="questionThread" @click="showInput(questionThread)" />
       </div>
 
       <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
-        @input="updateQuestionThread($event.target.value, questionThread)" />
+        @update-question-thread="updateQuestionThread" :showInput="showInput" />
     </li>
   </ul>
 </template>
@@ -32,13 +32,11 @@ export default {
     return {
       inputName: '',
       showInputMap: new Map(),
-
     }
   },
   computed: {
     ...mapState("openAi", ["questionThreadList"]),
     ...mapState("openAi", ["dataList"])
-
   },
   methods: {
     ...mapActions("openAi", ["deleteThisQuestionThread", "changeNameOfThisQuestionThread"]),
@@ -46,22 +44,22 @@ export default {
       this.currentQuestionThread = questionThread;
       this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
     },
-    editNameOfQuestionThread(questionThread) {
+    showInput(questionThread) {
       this.showInputMap.set(questionThread, true);
     },
-
     getShowInput(questionThread) {
       return this.showInputMap.get(questionThread) || false;
     },
-
     updateQuestionThread(newTitle, questionThread) {
+      console.log(newTitle, questionThread)
       this.showInputMap.set(questionThread, false);
-      // ... update the question thread in your Vuex store or database ...
+      this.$store.dispatch('openAi/changeNameOfThisQuestionThread', {
+        questionThread,
+        newTitle,
+      });
     }
-
   },
   updated() {
-    // todo 頁面標籤沒有跟著改 
     document.title = this.currentQuestionThread || 'Create New Chat';
   },
   created() {
@@ -69,7 +67,6 @@ export default {
   }
 };
 </script>
-
 <style scoped lang="scss">
 .questionThread {
   top: 20px;
