@@ -56,6 +56,10 @@ export default {
       this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
     }
   },
+  updated() {
+    // 我要呈現問題串的名稱
+    document.title = this.currentQuestionThread || this.$route.meta.title;
+  },
   created() {
     this.$store.dispatch("openAi/getQuestionThreadList");
   }
