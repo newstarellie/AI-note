@@ -3,24 +3,9 @@
     <header>
       <navbar></navbar>
     </header>
-    <aside class="questionThread">
-      <ul v-for="questionThread in questionThreadList" :key="questionThread">
-        <li @click="setCurrentQuestionThread(questionThread)">{{ questionThread }}</li>
-      </ul>
-    </aside>
     <main>
       <router-view :questionThread="currentQuestionThread"></router-view>
     </main>
-    <aside class="questionList">
-      <ul>
-        <li :title="data.question" v-for="(data) in dataList" :key="data.createdTime">
-          <a :href="`#${data.createdTime}`">{{ data.question }}</a>
-        </li>
-      </ul>
-      <i title="刪除紀錄" class="fa fa-trash" aria-hidden="true" @click="clearThisRecord"></i>
-
-    </aside>
-
     <footer>
       <p>&copy; 2023 My E-commerce Website. All rights reserved.</p>
     </footer>
@@ -58,7 +43,7 @@ export default {
   },
   updated() {
     // 我要呈現問題串的名稱
-    document.title = this.currentQuestionThread || this.$route.meta.title;
+    document.title = this.currentQuestionThread || 'Create New Chat';
   },
   created() {
     this.$store.dispatch("openAi/getQuestionThreadList");

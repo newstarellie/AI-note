@@ -8,8 +8,10 @@
         <p v-html="data.createdTime"></p>
       </li>
     </ul>
-    <textarea class="inputArea" type="text" v-model="inputText" @keyup.ctrl.enter="generateCode" ref="myInput" />
+    <questionThreadList />
+    <questionList />
 
+    <textarea class="inputArea" type="text" v-model="inputText" @keyup.ctrl.enter="generateCode" ref="myInput" />
     <button @click="generateCode">send</button>
   </div>
 </template>
@@ -18,11 +20,17 @@
 import generateCode from '@/api';
 import { DateTime } from 'luxon';
 import { mapState } from "vuex";
+import questionThreadList from '../components/questionThreadList.vue'
+import questionList from '../components/questionList.vue'
 
 
 export default {
   name: 'MyComponent',
   props: ['questionThread'],
+  components: {
+    questionThreadList,
+    questionList,
+  },
   data() {
     return {
       inputText: '',
