@@ -4,30 +4,6 @@
       <li>
         <router-link to="/">OPEN AI</router-link>
       </li>
-      <li>
-        <router-link to="/loading">loadingI</router-link>
-      </li>
-
-      <!-- <li>
-        <router-link to="/home">Home</router-link>
-      </li>
-      <li>
-        <router-link to="/cart">Cart</router-link>
-      </li>
-      <li>
-        <router-link to="/about">About</router-link>
-      </li>
-      <li>
-        <router-link to="/contact">Contact</router-link>
-      </li>
-      <li>
-        <router-link to="/history">History</router-link>
-      </li> -->
-      <!-- 如果已經登入之後 log out  -->
-      <!-- 沒有會員 sign in -->
-      <!-- <li>
-        <router-link to="/account">log in</router-link>
-      </li> -->
     </ul>
   </nav>
 </template>
