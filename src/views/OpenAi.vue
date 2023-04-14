@@ -1,14 +1,14 @@
 <template>
   <div>
     <questionThreadList />
-    <questionList :dataList="dataList" />
+    <questionList :dataList="dataList" v-if="!newPageStatus" />
     <questionInputArea />
-    <questionsRecordList :dataList="dataList" />
+    <questionsRecordList :dataList="dataList" v-if="!newPageStatus" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import questionThreadList from '../components/questionThreadList.vue'
 import questionsRecordList from '../components/questionsRecordList.vue'
 import questionList from '../components/questionList.vue'
@@ -29,6 +29,8 @@ export default {
   },
   computed: {
     ...mapState("openAi", ["dataList"]),
+    ...mapState("openAi", ["currentQuestionThread"]),
+    ...mapGetters("openAi", ["newPageStatus"])
 
   },
   updated() {

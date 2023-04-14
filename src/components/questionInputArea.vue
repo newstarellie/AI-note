@@ -13,7 +13,6 @@ import { mapState } from "vuex";
 
 export default {
   name: 'questionList',
-  // props: ['questionThread'],
   data() {
     return {
       inputText: '',
@@ -22,7 +21,6 @@ export default {
     };
   },
   computed: {
-    // currentQuestionThread 
     ...mapState("openAi", ["currentQuestionThread"]),
 
   },

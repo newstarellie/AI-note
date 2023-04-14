@@ -3,14 +3,14 @@ import { getDatabase, ref, set, get } from "firebase/database";
 const state = {
   dataList: {},
   questionThreadList: {},
-  currentQuestionThread: 'CreateNewChat',
+  currentQuestionThread: "",
 };
 
 const getters = {
+  newPageStatus: (state) => !state.currentQuestionThread,
 };
 
 const actions = {
-  // todo 改名字 
   writeDataToFirebase({ commit }, { questionThread, createdTime, payload }) {
     // 取得 Firebase Realtime Database 的參考
     const db = getDatabase();
