@@ -1,9 +1,6 @@
 // 引入 Vuex 和 Vue
 import { createStore } from 'vuex';
-import productsModule from './modules/products';
-import cartModule from './modules/cart';
 import commonActions from './actions';
-import orderModule from './modules/order';
 import openAiModule from './modules/openAi';
 
 
@@ -32,9 +29,6 @@ export default createStore({
   actions,
   mutations,
   modules: {
-    products: productsModule,
-    cart: cartModule,
-    order: orderModule,
     openAi: openAiModule
   },
 });
