@@ -3,14 +3,14 @@ import { getDatabase, ref, set, get } from "firebase/database";
 const state = {
   dataList: {},
   questionThreadList: {},
-  currentQuestionThread: '',
+  currentQuestionThread: 'CreateNewChat',
 };
 
 const getters = {
 };
 
 const actions = {
-  // 在此定義與產品相關的異步操作，例如從 API 獲取產品數據
+  // todo 改名字 
   writeDataToFirebase({ commit }, { questionThread, createdTime, payload }) {
     // 取得 Firebase Realtime Database 的參考
     const db = getDatabase();
@@ -22,7 +22,7 @@ const actions = {
       .then(() => {
         console.log("資料寫入成功");
         // 更新 Vuex state
-        commit("setChineseGrade", payload);
+        commit("SET_CURRENT_QUESTION_THREAD", questionThread)
       })
       .catch((error) => {
         console.error("資料寫入失敗", error);
@@ -53,7 +53,8 @@ const actions = {
     get(Allref)
       .then((snapshot) => {
         console.log("資料取得成功");
-        commit("SET_QUESTION_THREAD_LIST", Object.keys(snapshot.val()))
+        commit("SET_QUESTION_THREAD_LIST", Object.keys(snapshot.val()));
+        console.log(Object.keys(snapshot.val()))
       })
       .catch((error) => {
         console.error("資料取得失敗", error);
@@ -62,10 +63,7 @@ const actions = {
 };
 
 const mutations = {
-  // 在此定義更新 state 的同步操作
-  setChineseGrade(state, setChineseGrade) {
-    state.setChineseGrade = setChineseGrade;
-  },
+  // todo 改名字
   SET_DATA_LIST(state, data) {
     state.dataList = data;
   },

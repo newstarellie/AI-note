@@ -8,47 +8,59 @@
 <script>
 import generateCode from '@/api';
 import { DateTime } from 'luxon';
+import { mapState } from "vuex";
+
+
 export default {
   name: 'questionList',
-  props: ['dataList'],
+  // props: ['questionThread'],
   data() {
     return {
       inputText: '',
       outputText: '',
+      currentTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
     };
+  },
+  computed: {
+    // currentQuestionThread 
+    ...mapState("openAi", ["currentQuestionThread"]),
+
   },
   methods: {
     async generateCode() {
       this.$router.push('/loading');
       this.outputText = await generateCode(this.inputText);
-      this.$router.push('/');
-      this.writeDataToFirebase(this.inputText, this.outputText);
+      if (this.outputText) {
+        this.$router.push('/');
+        this.writeDataToFirebase(this.inputText, this.outputText);
+      }
       this.inputText = '';
     },
-
     writeDataToFirebase(question, answer) {
-      console.log(question, answer);
-      question = question.replace(/\n/g, "<br/>");
-      answer = answer.replace(/\n/g, "<br/>");
-      // 如果是新建立的questionThread  
-
       this.$store.dispatch('openAi/writeDataToFirebase', {
-        questionThread: this.questionThread,
-        createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
+        questionThread: this.currentQuestionThread !== 'CreateNewChat' ? this.currentQuestionThread : this.currentTime,
+        createdTime: this.currentTime,
         payload: {
-          createdTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
-          question: question,
-          answer: answer
+          createdTime: this.currentTime,
+          question: this.stringFormat(question),
+          answer: this.stringFormat(answer),
         }
       });
     },
+    stringFormat(str) {
+      return str.replace(/\n/g, "<br/>");
+    }
   },
   mounted() {
     this.$nextTick(() => {
       this.$refs.myInput.focus();
     });
-
   },
+  updated() {
+    // todo 頁面標籤沒有跟著改 
+    this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
+  },
+
 };
 </script>
 

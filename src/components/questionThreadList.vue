@@ -28,10 +28,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* 样式根据你的项目需求和设计进行调整 */
-
 .questionThread {
-
   top: 20px;
   left: 20px;
   background-color: white;
