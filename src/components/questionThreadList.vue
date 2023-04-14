@@ -9,9 +9,7 @@ import { mapState } from "vuex";
 export default {
   name: 'questionThreadList',
   computed: {
-    ...mapState("openAi", ["dataList"]),
     ...mapState("openAi", ["questionThreadList"]),
-
   },
   methods: {
     setCurrentQuestionThread(questionThread) {
@@ -33,8 +31,7 @@ export default {
 /* 样式根据你的项目需求和设计进行调整 */
 
 .questionThread {
-  // width: 20%;
-  // position: fixed;
+
   top: 20px;
   left: 20px;
   background-color: white;
