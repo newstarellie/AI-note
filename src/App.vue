@@ -4,7 +4,7 @@
       <navbar></navbar>
     </header>
     <main>
-      <router-view :questionThread="currentQuestionThread"></router-view>
+      <router-view></router-view>
     </main>
     <footer>
       <p>&copy; 2023 My E-commerce Website. All rights reserved.</p>
@@ -19,10 +19,6 @@ export default {
   name: 'App',
   components: {
     Navbar,
-  },
-  updated() {
-    // 我要呈現問題串的名稱
-    document.title = this.currentQuestionThread || 'Create New Chat';
   },
 };
 </script>
