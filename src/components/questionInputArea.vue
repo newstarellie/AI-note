@@ -56,8 +56,9 @@ export default {
     });
   },
   updated() {
-    // todo 頁面標籤沒有跟著改 
-    this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
+    if (this.currentQuestionThread) {
+      this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
+    }
   },
 
 };
