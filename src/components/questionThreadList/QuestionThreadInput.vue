@@ -2,7 +2,10 @@
   <div v-if="showInput">
     <input type="text" v-model="inputText">
     <button :class="{ disabled: buttonDisabled }" :disabled="buttonValid"
-      @click="updateQuestionThread(inputText, questionThread)">Done</button>
+      @click="updateQuestionThread(inputText, questionThread)">
+      <i class="fas fa-check"></i>
+    </button>
+
   </div>
 </template>
 <script>

@@ -5,10 +5,14 @@
         @click="setCurrentQuestionThread(questionThread)" />
 
       <div class="buttonList">
-        <QuestionThreadDeleteButton :question-thread="questionThread" @click="deleteThisQuestionThread(questionThread)" />
-        <QuestionThreadEditButton :question-thread="questionThread" @click="showInput(questionThread)" />
-        <i @click="closeInput(questionThread)" class="fas fa-window-close"></i>
-        <i class="fas fa-check"></i>
+        <div v-if="!getShowInput(questionThread)">
+          <QuestionThreadDeleteButton :question-thread="questionThread"
+            @click="deleteThisQuestionThread(questionThread)" />
+          <QuestionThreadEditButton :question-thread="questionThread" @click="showInput(questionThread)" />
+        </div>
+        <div v-if="getShowInput(questionThread)">
+          <i @click="closeInput(questionThread)" class="fas fa-window-close"></i>
+        </div>
       </div>
 
       <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
