@@ -45,11 +45,12 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .container {
   display: flex;
   justify-content: space-between;
   width: 100vw;
+  height: 100%;
 }
 
 .questionThreadList {
@@ -58,9 +59,15 @@ export default {
 
 .content {
   width: 60%;
-  /* height: 100px;
-  padding: 10px;
-  margin: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+
+  .questionInputArea {
+    align-self: flex-end;
+    width: 100%;
+  }
 }
 
 .questionsRecordList {

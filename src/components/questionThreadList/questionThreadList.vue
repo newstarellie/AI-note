@@ -4,6 +4,8 @@
       <QuestionThreadLink :question-thread="questionThread" v-if="!getShowInput(questionThread)"
         @click="setCurrentQuestionThread(questionThread)" />
 
+      <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
+        @updateQuestionThread="updateQuestionThread" :showInput="showInput" />
       <div class="buttonList">
         <div v-if="!getShowInput(questionThread)">
           <QuestionThreadDeleteButton :question-thread="questionThread"
@@ -15,8 +17,7 @@
         </div>
       </div>
 
-      <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
-        @updateQuestionThread="updateQuestionThread" :showInput="showInput" />
+
     </li>
   </ul>
 </template>

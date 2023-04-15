@@ -46,19 +46,17 @@ form {
 
 /* 標籤樣式 */
 label {
-  font-size: 1.2em;
+  font-size: $font-size-base;
   margin-bottom: 0.5em;
   color: $primary-color;
 }
 
 /* 輸入欄位樣式 */
 input {
-  font-size: 1.2em;
-  padding: 0.5em;
+  font-size: $font-size-base;
+  // padding: 0.5em;
   border-radius: $border-radius;
-  border: none;
   background-color: $primary-background-color;
-  margin-bottom: 1em;
   color: $text-color;
   text-align: center;
 }
@@ -70,17 +68,23 @@ button {
   padding: 0.5em 1em;
   border: none;
   border-radius: $border-radius;
-  font-size: 1.2em;
+  font-size: $font-size-base;
   cursor: pointer;
   margin-top: 1em;
 }
 
 i {
   font-size: $icon-font-size;
+  margin: 2px;
 
   &:hover {
     color: $secondary-color;
     cursor: pointer;
+  }
+
+  &.disabled {
+    color: $disabled-color;
+    cursor: not-allowed
   }
 }
 

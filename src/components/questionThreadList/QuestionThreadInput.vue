@@ -1,11 +1,8 @@
 <template>
-  <div v-if="showInput">
+  <div v-if="showInput" class="input-area">
     <input type="text" v-model="inputText">
-    <button :class="{ disabled: buttonDisabled }" :disabled="buttonValid"
-      @click="updateQuestionThread(inputText, questionThread)">
-      <i class="fas fa-check"></i>
-    </button>
-
+    <i class="fas fa-check" :class="{ disabled: buttonDisabled }" :disabled="buttonValid"
+      @click="updateQuestionThread(inputText, questionThread)"></i>
   </div>
 </template>
 <script>
@@ -38,7 +35,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.disabled {
-  background-color: gray;
+input {
+  width: 80%;
+}
+
+.input-area {
+  display: flex;
 }
 </style>
