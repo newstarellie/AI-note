@@ -12,7 +12,7 @@
       </div>
 
       <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
-        @update-question-thread="updateQuestionThread" :showInput="showInput" />
+        @updateQuestionThread="updateQuestionThread" :showInput="showInput" />
     </li>
   </ul>
 </template>
@@ -63,13 +63,15 @@ export default {
     getShowInput(questionThread) {
       return this.showInputMap.get(questionThread) || false;
     },
-    updateQuestionThread(newTitle, questionThread) {
-      console.log(newTitle, questionThread)
-      this.showInputMap.set(questionThread, false);
-      this.$store.dispatch('openAi/changeNameOfThisQuestionThread', {
-        questionThread,
-        newTitle,
-      });
+    updateQuestionThread(oldQuestionThread, newQuestionThread) {
+      this.showInputMap.set(newQuestionThread, false);
+      if (oldQuestionThread !== newQuestionThread) {
+        console.log(oldQuestionThread, newQuestionThread);
+        this.$store.dispatch('openAi/changeNameOfThisQuestionThread', {
+          oldQuestionThread: oldQuestionThread,
+          newQuestionThread: newQuestionThread
+        });
+      }
     }
   },
   updated() {

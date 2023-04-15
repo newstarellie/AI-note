@@ -1,6 +1,6 @@
 <template>
   <div v-if="showInput">
-    <input type="text" :value="questionThread" @input="inputText = $event.target.value">
+    <input type="text" v-model="inputText">
     <button @click="updateQuestionThread(inputText, questionThread)">Done</button>
   </div>
 </template>
@@ -16,9 +16,13 @@ export default {
   methods: {
     updateQuestionThread(newTitle,
       oldTitle) {
-      console.log(newTitle, oldTitle)
-      this.$emit('update', newTitle, oldTitle);
+      if (newTitle) {
+        this.$emit('updateQuestionThread', oldTitle, newTitle);
+      }
     },
   },
+  created() {
+    this.inputText = this.questionThread;
+  }
 }
 </script>

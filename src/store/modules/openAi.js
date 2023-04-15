@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, get, move } from "firebase/database";
+import { getDatabase, ref, set, get, remove } from "firebase/database";
 
 const state = {
   dataList: {},
@@ -23,9 +23,6 @@ const actions = {
         console.log("資料寫入成功");
         // 更新 Vuex state
         commit("SET_CURRENT_QUESTION_THREAD", questionThread)
-        // this.dispatch("getDataFromFirebase", questionThread);
-        // this.$store.dispatch("openAi/getDataFromFirebase", state.currentQuestionThread);
-
       })
       .catch((error) => {
         console.error("資料寫入失敗", error);
@@ -50,10 +47,10 @@ const actions = {
   getQuestionThreadList({ commit }) {
     // 取得 Firebase Realtime Database 的參考
     const db = getDatabase();
-    const Allref = ref(db);
+    const allRef = ref(db);
 
     // 寫入資料到 Firebase Realtime Database
-    get(Allref)
+    get(allRef)
       .then((snapshot) => {
         console.log("資料取得成功");
         commit("SET_QUESTION_THREAD_LIST", Object.keys(snapshot.val()));
@@ -83,16 +80,28 @@ const actions = {
     const oldQuestionThreadRef = ref(db, oldQuestionThread);
     const newQuestionThreadRef = ref(db, newQuestionThread);
 
-    // 移動資料到新的路徑
-    move(oldQuestionThreadRef, newQuestionThreadRef)
-      .then(() => {
-        console.log("資料已從舊的路徑移動到新的路徑");
-        dispatch("getQuestionThreadList");
-      })
-      .catch((error) => {
-        console.error("移動資料到新的路徑時出錯", error);
+    // 取得原本的資料
+    get(oldQuestionThreadRef).then((snapshot) => {
+      const data = snapshot.val();
+
+      // 在新的路徑下覆蓋原本的資料
+      set(newQuestionThreadRef, data).then(() => {
+        console.log("資料已成功更名");
+        // 刪除原本的路徑
+        remove(oldQuestionThreadRef).then(() => {
+          console.log("原本的路徑已成功刪除");
+          dispatch("getQuestionThreadList");
+        }).catch((error) => {
+          console.error("刪除原本的路徑時出錯", error);
+        });
+      }).catch((error) => {
+        console.error("更改資料時出錯", error);
       });
+    }).catch((error) => {
+      console.error("取得原本的資料時出錯", error);
+    });
   },
+
   clearAllQuestionThread() {
     const db = getDatabase();
     const rootRef = ref(db);
