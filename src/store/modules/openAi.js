@@ -22,7 +22,8 @@ const actions = {
       .then(() => {
         console.log("資料寫入成功");
         // 更新 Vuex state
-        commit("SET_CURRENT_QUESTION_THREAD", questionThread)
+        commit("SET_CURRENT_QUESTION_THREAD", questionThread);
+        this.dispatch("openAi/getDataFromFirebase", questionThread);
       })
       .catch((error) => {
         console.error("資料寫入失敗", error);
@@ -101,7 +102,6 @@ const actions = {
       console.error("取得原本的資料時出錯", error);
     });
   },
-
   clearAllQuestionThread() {
     const db = getDatabase();
     const rootRef = ref(db);
@@ -117,7 +117,6 @@ const actions = {
         console.error("清除資料庫時出錯", error);
       });
   }
-
 };
 
 const mutations = {
