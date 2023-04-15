@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea class="inputArea" type="text" v-model="inputText" @keyup.ctrl.enter="generateCode" ref="myInput" />
-    <button @click="generateCode">send</button>
+    <button @click="generateCode" :class="{ disabled: !buttonValid }" :disabled="!buttonValid">send</button>
   </div>
 </template>
 
@@ -16,9 +16,17 @@ export default {
   data() {
     return {
       inputText: '',
+      buttonValid: false,
       outputText: '',
       currentTime: DateTime.now().toFormat('yyyy-MM-dd-HH:mm:ss'),
     };
+  },
+  watch: {
+    inputText(newVal) {
+      if (this.inputText)
+        console.log(this.inputText)
+      this.buttonValid = newVal;
+    }
   },
   computed: {
     ...mapState("openAi", ["currentQuestionThread"]),
