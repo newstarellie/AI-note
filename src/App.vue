@@ -25,9 +25,11 @@ export default {
 
 <style scoped lang="scss">
 #app {
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 header {
@@ -36,9 +38,11 @@ header {
 }
 
 main {
-  flex: 1;
   margin-right: 20px;
-  width: 80%;
+  width: 100%;
+  align-self: flex-start;
+  justify-self: start;
+  height: 90%;
 }
 
 footer {

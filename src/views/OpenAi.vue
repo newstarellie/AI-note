@@ -3,6 +3,7 @@
     <questionThreadList class="questionThreadList" />
     <div class="content">
       <questionList :dataList="dataList" v-if="!newPageStatus" />
+      <div></div>
       <questionInputArea class="questionInputArea" />
     </div>
     <questionsRecordList :dataList="dataList" class="questionsRecordList" v-if="!newPageStatus" />
@@ -48,13 +49,14 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
+  width: 100%;
   height: 100%;
 }
 
 .questionThreadList {
   width: 20%;
+  height: 100%;
+  min-width: 200px;
 }
 
 .content {
@@ -65,7 +67,6 @@ export default {
   margin: 10px;
 
   .questionInputArea {
-    align-self: flex-end;
     width: 100%;
   }
 }
