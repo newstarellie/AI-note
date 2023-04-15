@@ -1,6 +1,6 @@
 <template>
-  <ul class="questionThread" v-for="questionThread in questionThreadList" :key="questionThread">
-    <li>
+  <ul class="questionThreadList">
+    <li class="questionThread" v-for="questionThread in questionThreadList" :key="questionThread">
       <QuestionThreadLink :question-thread="questionThread" v-if="!getShowInput(questionThread)"
         @click="setCurrentQuestionThread(questionThread)" />
 
@@ -87,11 +87,14 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.questionThreadList {
+  display: flex;
+  flex-direction: column;
+}
+
 .questionThread {
-  top: 20px;
-  left: 20px;
-  background-color: white;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .buttonList {
@@ -101,14 +104,5 @@ export default {
   display: flex;
   justify-content: end;
 
-  i {
-
-    font-size: 30px;
-
-    &:hover {
-      color: gray;
-      cursor: pointer;
-    }
-  }
 }
 </style>
