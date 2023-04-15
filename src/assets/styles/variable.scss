@@ -5,10 +5,31 @@ $large-screen: 1200px;
 $x-large-screen: 1440px;
 
 
-$main-color: #8B0000;
-$bg-color: #F5DEB3;
-$text-color: #000;
+// 色彩相關
+$primary-color: #0085ad;
+$secondary-color: #74d2e7;
+$text-color: #005670;
+$primary-background-color: #eae9de;
+$secondary-background-color: #f9f9f6;
+$border-color: gray;
 
-$primary-color: #42b983;
-$secondary-color: #35495e;
-$font-family: 'Helvetica Neue', Arial, sans-serif;
+// 字型相關
+$font-family-base: 'Helvetica Neue', Arial, sans-serif;
+$font-family-sans-serif: 'Noto Sans TC', sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+$headings-font-family: $font-family-base;
+$headings-font-weight: 500;
+$icon-font-size: 1.5rem;
+
+// 間距相關
+$spacer: 1rem;
+$spacer-half: $spacer / 2;
+$spacer-quarter: $spacer / 4;
+$spacer-two-thirds: $spacer * 2 / 3;
+$spacer-three-quarters: $spacer * 3 / 4;
+
+// 圓角相關
+$border-radius: 0.25rem;
+$border-radius-lg: 0.3rem;
+$border-radius-sm: 0.2rem;
