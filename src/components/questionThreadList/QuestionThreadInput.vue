@@ -16,6 +16,7 @@ export default {
   methods: {
     updateQuestionThread(newTitle,
       oldTitle) {
+      console.log(newTitle, oldTitle)
       this.$emit('update', newTitle, oldTitle);
     },
   },

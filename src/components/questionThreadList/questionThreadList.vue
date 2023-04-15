@@ -1,11 +1,14 @@
 <template>
   <ul class="questionThread" v-for="questionThread in questionThreadList" :key="questionThread">
     <li>
-      <QuestionThreadLink :question-thread="questionThread" @click="setCurrentQuestionThread(questionThread)" />
+      <QuestionThreadLink :question-thread="questionThread" v-if="!getShowInput(questionThread)"
+        @click="setCurrentQuestionThread(questionThread)" />
 
       <div class="buttonList">
         <QuestionThreadDeleteButton :question-thread="questionThread" @click="deleteThisQuestionThread(questionThread)" />
         <QuestionThreadEditButton :question-thread="questionThread" @click="showInput(questionThread)" />
+        <i @click="closeInput(questionThread)" class="fas fa-window-close"></i>
+        <i class="fas fa-check"></i>
       </div>
 
       <QuestionThreadInput v-if="getShowInput(questionThread)" :question-thread="questionThread"
@@ -46,6 +49,16 @@ export default {
     },
     showInput(questionThread) {
       this.showInputMap.set(questionThread, true);
+      // close input of other question threads
+      for (const [key, value] of this.showInputMap) {
+        if (key !== questionThread && value) {
+          this.showInputMap.set(key, false);
+        }
+      }
+    },
+    closeInput(questionThread) {
+      this.showInputMap.set(questionThread, false);
+
     },
     getShowInput(questionThread) {
       return this.showInputMap.get(questionThread) || false;
@@ -76,9 +89,11 @@ export default {
 }
 
 .buttonList {
-  position: absolute;
+  // position: absolute;
   right: 0;
   top: 0px;
+  display: flex;
+  justify-content: end;
 
   i {
 
