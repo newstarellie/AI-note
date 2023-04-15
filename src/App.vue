@@ -24,7 +24,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* 样式根据你的项目需求和设计进行调整 */
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
   background-color: #f5f5f5;
   padding: 10px 0;
@@ -37,7 +42,8 @@ main {
 }
 
 footer {
-  background-color: #f5f5f5
+  background-color: #f5f5f5;
+  text-align: center;
 }
 
 i {

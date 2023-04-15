@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <questionThreadList />
-    <questionList :dataList="dataList" v-if="!newPageStatus" />
-    <questionInputArea />
-    <questionsRecordList :dataList="dataList" v-if="!newPageStatus" />
+  <div class="container">
+    <questionThreadList class="questionThreadList" />
+    <div class="content">
+      <questionList :dataList="dataList" v-if="!newPageStatus" />
+      <questionInputArea class="questionInputArea" />
+    </div>
+    <questionsRecordList :dataList="dataList" class="questionsRecordList" v-if="!newPageStatus" />
   </div>
 </template>
 
@@ -44,14 +46,24 @@ export default {
 };
 </script>
 <style>
-.question {
-  border: 1px solid black;
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
 }
 
-.inputArea {
-  width: 80%;
-  height: 100px;
+.questionThreadList {
+  width: 20%;
+}
+
+.content {
+  width: 60%;
+  /* height: 100px;
   padding: 10px;
-  margin: 20px;
+  margin: 20px; */
+}
+
+.questionsRecordList {
+  width: 20%;
 }
 </style>

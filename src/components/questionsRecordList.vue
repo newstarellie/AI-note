@@ -18,12 +18,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.questionsRecordList {
-  // width: 20%;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: white;
-}
-</style>
+<style scoped lang="scss"></style>
