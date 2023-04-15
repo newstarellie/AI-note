@@ -1,10 +1,22 @@
 <template>
   <nav>
+    <ul class="buttonList">
+      <li>
+        <i class="fas fa-trash" title="垃圾桶"></i>
+      </li>
+      <li>
+        <i class="fas fa-eraser" title="清除全部"></i>
+      </li>
+      <li>
+        <i class="fas fa-plus" title="newChat"></i>
+      </li>
+    </ul>
     <ul>
       <li>
         <router-link to="/">OPEN AI</router-link>
       </li>
     </ul>
+    <div></div>
   </nav>
 </template>
 
@@ -17,25 +29,12 @@ export default {
 
 <style scoped>
 /* 样式根据你的项目需求和设计进行调整 */
-
-nav ul {
+nav {
   display: flex;
-  list-style: none;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
+  justify-content: space-between;
 }
 
-nav ul li {
-  margin: 0 10px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-nav ul li a:hover {
-  color: #007bff;
+ul {
+  display: flex;
 }
 </style>
