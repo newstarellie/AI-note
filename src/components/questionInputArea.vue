@@ -24,8 +24,7 @@ export default {
   watch: {
     inputText(newVal) {
       if (this.inputText)
-        console.log(this.inputText)
-      this.buttonValid = newVal;
+        this.buttonValid = newVal;
     }
   },
   computed: {

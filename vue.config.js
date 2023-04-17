@@ -11,5 +11,8 @@ module.exports = defineConfig({
         __VUE_I18N_PROD_DEVTOOLS__: false,
       }),
     ],
+    experiments: {
+      topLevelAwait: true
+    }
   },
 });
