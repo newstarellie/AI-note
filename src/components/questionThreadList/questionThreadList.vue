@@ -16,8 +16,6 @@
           <i @click="closeInput(questionThread)" class="fas fa-window-close"></i>
         </div>
       </div>
-
-
     </li>
   </ul>
 </template>
@@ -50,7 +48,11 @@ export default {
     ...mapActions("openAi", ["deleteThisQuestionThread", "changeNameOfThisQuestionThread"]),
     setCurrentQuestionThread(questionThread) {
       this.currentQuestionThread = questionThread;
+      this.setDocumentTitle(questionThread);
       this.$store.dispatch("openAi/getDataFromFirebase", this.currentQuestionThread);
+    },
+    setDocumentTitle(title) {
+      document.title = title;
     },
     showInput(questionThread) {
       this.showInputMap.set(questionThread, true);
@@ -63,7 +65,6 @@ export default {
     },
     closeInput(questionThread) {
       this.showInputMap.set(questionThread, false);
-
     },
     getShowInput(questionThread) {
       return this.showInputMap.get(questionThread) || false;
@@ -79,11 +80,13 @@ export default {
       }
     }
   },
-  updated() {
-    document.title = this.currentQuestionThread || 'Create New Chat';
-  },
   created() {
     this.$store.dispatch("openAi/getQuestionThreadList");
+    if (!this.currentQuestionThread) {
+
+      this.setDocumentTitle('create new');
+    }
+
   }
 };
 </script>
