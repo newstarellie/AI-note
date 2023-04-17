@@ -6,9 +6,9 @@
     <main>
       <router-view></router-view>
     </main>
-    <footer>
+    <!-- <footer>
       <p>&copy; 2023 My E-commerce Website. All rights reserved.</p>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -25,8 +25,8 @@ export default {
 
 <style scoped lang="scss">
 #app {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
