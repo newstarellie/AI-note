@@ -15,5 +15,10 @@ export default {
   props: ['dataList']
 };
 </script>
+<style scoped lang="scss">
+@import "@/assets/styles/variable.scss";
 
-<style scoped lang="scss"></style>
+.question {
+  background-color: $primary-background-color;
+}
+</style>

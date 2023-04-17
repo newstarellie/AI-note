@@ -115,6 +115,8 @@ ul {
   li {
     list-style: none;
     margin: $spacer-half;
+    margin: 0;
+    padding: 10px 10px;
   }
 }
 

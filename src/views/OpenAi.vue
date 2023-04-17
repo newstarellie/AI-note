@@ -55,7 +55,7 @@ export default {
 
 .questionThreadList {
   width: 20%;
-  height: 100%;
+  height: 100vh;
   min-width: 200px;
 }
 
@@ -64,10 +64,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 10px;
 
   .questionInputArea {
     width: 100%;
+    margin: 20px 0;
   }
 }
 
